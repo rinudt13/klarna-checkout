@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Klarna Express Button</title>
+  <script src="https://x.klarnacdn.net/kp/lib/v1/api.js" async></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    window.klarnaAsyncCallback = function () {
+      window.Klarna.Payments.Buttons.init({
+        client_id: "YOUR_KLARNA_CLIENT_ID",
+      }).load({
+        container: "#container",
+        theme: "default",
+        shape: "default",
+        on_click: (authorize) => {
+          const payload = {
+            collect_shipping_address: true
+          };
+          authorize(payload, payload, function (result) {
+            console.log("Authorized:", result);
+          });
+        }
+      });
+    };
+  </script>
+</body>
+</html>
